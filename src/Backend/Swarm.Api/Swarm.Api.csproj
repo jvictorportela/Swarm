@@ -10,4 +10,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Swarm.Communication\Swarm.Communication.csproj" />
+    <ProjectReference Include="..\..\Shared\Swarm.Exceptions\Swarm.Exceptions.csproj" />
+    <ProjectReference Include="..\Swarm.Application\Swarm.Application.csproj" />
+    <ProjectReference Include="..\Swarm.Infrastructure\Swarm.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
