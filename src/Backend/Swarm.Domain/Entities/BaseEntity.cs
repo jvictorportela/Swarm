@@ -1,6 +1,6 @@
 ﻿namespace Swarm.Domain.Entities;
 
-public class BaseEntitie
+public class BaseEntity
 {
     public long Id { get; set; }
     public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
