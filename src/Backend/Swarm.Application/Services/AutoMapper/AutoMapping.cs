@@ -16,10 +16,16 @@ public class AutoMapping : Profile
     {
         CreateMap<RequestRegisterUserJson, Domain.Entities.User>()
             .ForMember(dest => dest.Password, opt => opt.Ignore());
+
+        CreateMap<RequestGroupJson, Domain.Entities.Group>()
+            .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products.Distinct()));
     }
 
     private void DomainToResponse()
     {
         CreateMap<Domain.Entities.User, ResponseUserProfileJson>();
+
+        CreateMap<Domain.Entities.Group, ResponseRegisteredGroupJson>()
+            .ForMember(dest => dest.Name, config => config.MapFrom(source => source.Name));
     }
 }

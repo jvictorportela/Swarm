@@ -15,6 +15,7 @@ using Swarm.Infrastructure.Security.Tokens.Access.Validator;
 using Swarm.Infrastructure.Security.Tokens.Access.Generator;
 using Swarm.Infrastructure.Extensions;
 using Swarm.Infrastructure.DataAccess.Repositories;
+using Swarm.Domain.Repositories.Group;
 
 namespace Swarm.Infrastructure;
 
@@ -46,6 +47,9 @@ public static class DependencyInjectionExtension
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
         services.AddScoped<IUserUpdateOnlyRepository, UserRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IGroupReadOnlyRepository, GroupRepository>();
+        services.AddScoped<IGroupUpdateRepository, GroupRepository>();
+        services.AddScoped<IGroupWriteOnlyRepository, GroupRepository>();
     }
 
     private static void AddFluentMigrator(IServiceCollection services, IConfiguration configuration)
