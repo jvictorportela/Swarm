@@ -97,6 +97,15 @@ namespace Swarm.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The internal code cannot be empty!.
+        /// </summary>
+        public static string INTERNAL_CODE_EMPTY {
+            get {
+                return ResourceManager.GetString("INTERNAL_CODE_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Invalid Password!.
         /// </summary>
         public static string INVALID_PASSWORD {
@@ -111,6 +120,15 @@ namespace Swarm.Exceptions {
         public static string NAME_EMPTY {
             get {
                 return ResourceManager.GetString("NAME_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The minimum length of name is 1 and maximum 35.
+        /// </summary>
+        public static string NAME_MAX_35_MIN_1 {
+            get {
+                return ResourceManager.GetString("NAME_MAX_35_MIN_1", resourceCulture);
             }
         }
         
@@ -151,6 +169,15 @@ namespace Swarm.Exceptions {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Unit Type not supported..
+        /// </summary>
+        public static string UNIT_TYPE_NOT_SUPPORTED {
+            get {
+                return ResourceManager.GetString("UNIT_TYPE_NOT_SUPPORTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Unknow error..
         /// </summary>
         public static string UNKNOWN_ERROR {
@@ -165,6 +192,15 @@ namespace Swarm.Exceptions {
         public static string USER_WITHOUT_PERMISSION_ACCESS_RESOURCE {
             get {
                 return ResourceManager.GetString("USER_WITHOUT_PERMISSION_ACCESS_RESOURCE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The value cannot be empty!.
+        /// </summary>
+        public static string VALUE_EMPTY {
+            get {
+                return ResourceManager.GetString("VALUE_EMPTY", resourceCulture);
             }
         }
     }

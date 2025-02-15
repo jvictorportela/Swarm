@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Backend\Swarm.Domain\Swarm.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

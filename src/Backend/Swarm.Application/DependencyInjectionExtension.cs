@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swarm.Application.Services.AutoMapper;
+using Swarm.Application.UseCases.Group.Create;
 using Swarm.Application.UseCases.Login.DoLogin;
 using Swarm.Application.UseCases.User.ChangePassword;
 using Swarm.Application.UseCases.User.Profile;
@@ -24,6 +25,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
         services.AddScoped<IUpdateUserUseCase, UpdateUserUseCase>();
         services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
+        services.AddScoped<IRegisterGroupUseCase, RegisterGroupUseCase>();
     }
 
     private static void AddAutoMapper(IServiceCollection services)
