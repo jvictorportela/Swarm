@@ -8,6 +8,7 @@ public class SwarmDbContext : DbContext
 
     public DbSet<Domain.Entities.User> Users { get; set; }
     public DbSet<Domain.Entities.Group> Groups { get; set; }
+    public DbSet<Domain.Entities.Product> Products { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
