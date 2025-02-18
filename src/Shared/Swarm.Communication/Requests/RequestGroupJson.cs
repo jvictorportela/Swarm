@@ -3,6 +3,6 @@
 public class RequestGroupJson
 {
     public string Name { get; set; } = string.Empty;
-    public IList<RequestProductJson> Products { get; set; } = []; // = new List<Product>();
+    public IList<RequestProductJson> Products { get; set; } = [];
     public long UserId { get; set; }
 }
