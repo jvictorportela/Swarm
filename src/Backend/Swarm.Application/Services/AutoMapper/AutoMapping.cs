@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Sqids;
 using Swarm.Communication.Requests;
 using Swarm.Communication.Responses;
 using Swarm.Domain.Entities;
@@ -7,8 +8,11 @@ namespace Swarm.Application.Services.AutoMapper;
 
 public class AutoMapping : Profile
 {
-    public AutoMapping()
+    private readonly SqidsEncoder<long> _idEncoder;
+
+    public AutoMapping(SqidsEncoder<long> idEncoder)
     {
+        _idEncoder = idEncoder;
         RequestToDomain();
         DomainToResponse();
     }
@@ -33,6 +37,6 @@ public class AutoMapping : Profile
         CreateMap<User, ResponseUserProfileJson>();
 
         CreateMap<Group, ResponseRegisteredGroupJson>()
-            .ForMember(dest => dest.Name, config => config.MapFrom(source => source.Name));
+            .ForMember(dest => dest.Id, config => config.MapFrom(source => _idEncoder.Encode(source.Id)));
     }
 }
