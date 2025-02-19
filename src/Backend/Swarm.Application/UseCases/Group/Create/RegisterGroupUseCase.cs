@@ -3,6 +3,7 @@ using Swarm.Communication.Requests;
 using Swarm.Communication.Responses;
 using Swarm.Domain.Repositories;
 using Swarm.Domain.Repositories.Group;
+using Swarm.Domain.Repositories.Product;
 using Swarm.Domain.Security.Tokens;
 using Swarm.Domain.Services.LoggedUser;
 using Swarm.Exceptions.ExceptionBase;
@@ -18,8 +19,9 @@ public class RegisterGroupUseCase : IRegisterGroupUseCase
     private readonly IAccessTokenGenerator _accessTokenGenerator;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ILoggedUser _loggedUser;
+    private readonly IProductReadOnlyRepository _productReadOnlyRepository;
 
-    public RegisterGroupUseCase(IGroupWriteOnlyRepository writeOnlyRepository, IGroupReadOnlyRepository readOnlyRepository, IGroupUpdateRepository groupUpdateRepository, IMapper mapper, IAccessTokenGenerator accessTokenGenerator, IUnitOfWork unitOfWork, ILoggedUser loggedUser)
+    public RegisterGroupUseCase(IGroupWriteOnlyRepository writeOnlyRepository, IGroupReadOnlyRepository readOnlyRepository, IGroupUpdateRepository groupUpdateRepository, IMapper mapper, IAccessTokenGenerator accessTokenGenerator, IUnitOfWork unitOfWork, ILoggedUser loggedUser, IProductReadOnlyRepository productReadOnlyRepository)
     {
         _writeOnlyRepository = writeOnlyRepository;
         _readOnlyRepository = readOnlyRepository;
@@ -28,6 +30,7 @@ public class RegisterGroupUseCase : IRegisterGroupUseCase
         _accessTokenGenerator = accessTokenGenerator;
         _unitOfWork = unitOfWork;
         _loggedUser = loggedUser;
+        _productReadOnlyRepository = productReadOnlyRepository;
     }
 
     //public async Task<ResponseRegisteredGroupJson> Execute(RequestGroupJson request)
@@ -59,9 +62,11 @@ public class RegisterGroupUseCase : IRegisterGroupUseCase
         await _unitOfWork.Commit();
 
         var products = _mapper.Map<IList<Domain.Entities.Product>>(request.Products);
+
         foreach (var product in products)
         {
-            product.GroupId = group.Id; 
+            product.GroupId = group.Id;
+            await PrepareProductParameters(product);
         }
 
         group.Products = products;
@@ -70,10 +75,7 @@ public class RegisterGroupUseCase : IRegisterGroupUseCase
         await _unitOfWork.Commit();
 
 
-        return new ResponseRegisteredGroupJson
-        {
-            Name = group.Name
-        };
+        return _mapper.Map<ResponseRegisteredGroupJson>(group);
     }
 
     private async Task Validate(RequestGroupJson request)
@@ -92,5 +94,12 @@ public class RegisterGroupUseCase : IRegisterGroupUseCase
             var errorsMessages = result.Errors.Select(x => x.ErrorMessage).ToList();
             throw new ErrorOnValidationException(errorsMessages);
         }
+    }
+
+    private async Task PrepareProductParameters(Domain.Entities.Product product)
+    {
+        var lastInternalCode = await _productReadOnlyRepository.GetLastInternalCode() ?? 0L;
+        product.InternalCode = lastInternalCode + 1;
+        product.Name = product.Name.Replace(" ", "_");
     }
 }

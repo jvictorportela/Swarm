@@ -16,6 +16,7 @@ using Swarm.Infrastructure.Security.Tokens.Access.Generator;
 using Swarm.Infrastructure.Extensions;
 using Swarm.Infrastructure.DataAccess.Repositories;
 using Swarm.Domain.Repositories.Group;
+using Swarm.Domain.Repositories.Product;
 
 namespace Swarm.Infrastructure;
 
@@ -50,6 +51,7 @@ public static class DependencyInjectionExtension
         services.AddScoped<IGroupReadOnlyRepository, GroupRepository>();
         services.AddScoped<IGroupUpdateRepository, GroupRepository>();
         services.AddScoped<IGroupWriteOnlyRepository, GroupRepository>();
+        services.AddScoped<IProductReadOnlyRepository, ProductRepository>();
     }
 
     private static void AddFluentMigrator(IServiceCollection services, IConfiguration configuration)
